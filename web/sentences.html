@@ -1,0 +1,61 @@
+
+$def with (name,sents)
+
+<!DOCTYPE html>
+<head>
+<title>二元分词</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+<style type='text/css'>
+    body {
+      background-color: #CCC;
+    }
+    #content {
+      background-color: #FFF;
+      border-radius: 5px;
+    }
+    #content .main {
+      padding: 20px;
+    }
+    #content .sidebar {
+      padding: 10px;
+    }
+    #content p {
+      line-height: 30px;
+    }
+</style>
+</head>
+<body>
+  <div class='container'>
+    <h1>中文分词</h1>
+    <div class='navbar navbar-inverse'>
+      <div class='navbar-inner nav-collapse' style="height: auto;">
+        <ul class="nav">
+          <li class="active"><a href="bigram">二元分词</a></li>
+          <li><a href="unigram">一元分词</a></li>
+          <li><a href="sents">句子列表</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id='content' class='row-fluid'>
+      <div class='span9 main'>
+        <h2>句子列表</h2>
+        <p>
+        	
+        	$for s in sents: 
+    			$s <br>
+        </p> 
+
+
+      </div>
+      <div class='span3 sidebar'>
+        <h2>Sidebar</h2>
+        <ul class="nav nav-tabs nav-stacked">
+          <li><a href='#'>Another Link 1</a></li>
+          <li><a href='#'>Another Link 2</a></li>
+          <li><a href='#'>Another Link 3</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

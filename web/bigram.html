@@ -1,0 +1,106 @@
+$def with (name,bigramWords)
+
+
+<!DOCTYPE html>
+<head>
+<title>二元分词</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+<style type='text/css'>
+    body {
+      background-color: #CCC;
+    }
+    #content {
+      background-color: #FFF;
+      border-radius: 5px;
+    }
+    #content .main {
+      padding: 20px;
+    }
+    #content .sidebar {
+      padding: 10px;
+    }
+    #content p {
+      line-height: 30px;
+    }
+</style>
+
+<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+function highLightKeyword(keys,s) {
+  var inS=s;
+  for(i=0;i<keys.length;i++) {
+
+    key=keys[i];
+    newKey='<font color="red">'+key + '</font>' 
+    
+    inS=inS.replace(key,newKey)
+  }
+  console.log(inS)
+  return inS;
+}
+
+function getSents(key) {
+    $$.ajax({     
+    url:'getSents',     
+    type:'post',     
+    data:'key='+key,     
+    async : true, //默认为true 异步     
+    error:function(){     
+       alert('error');     
+    },     
+    success:function(data){
+        var text='';
+        //$$("#sents").remove()
+        keys=key.split('-')
+        console.log(keys)
+        var array1=eval("("+data+")");   
+        $$.each(array1, function(i,val){ 
+        var newV=val;  
+        newV= highLightKeyword(key,val)  
+            
+          text= text + newV+'<p>'
+          //newDiv='<p id=sens'+i+'>'+val+'</p>'
+          //newDiv='<p>'+val+'</p>'
+          //console.log(newDiv)
+          //$$("#sents").append(newDiv)
+        });
+       $$("#sents").html(text);           
+       
+    }  
+  });  
+}
+
+</script>
+
+</head>
+<body>
+  <div class='container'>
+    <h1>中文分词 </h1>
+
+    $:render.navbar()
+
+    <div id='content' class='row-fluid'>
+      <div class='span4 main'>
+        <h2>二元高频词($len(bigramWords))</h2>
+        <p>
+        	$for s in bigramWords: 
+    		<a href="javascript:void(0)" onclick="getSents('$s[0]')">
+        	$s[0],$s[1]<br> 
+        </a> 
+        </p> 
+
+      </div>
+      <div class='span6 sidebar'>
+        <h4>句子</h4>
+        <ul class="nav nav-tabs nav-stacked">
+          <div id='sents'> 
+          这里显示例句。  
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+$def with (name,unigramWords)
+
+<!DOCTYPE html>
+<head>
+<title>一元分词</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+
+<style type='text/css'>
+    body {
+      background-color: #CCC;
+    }
+    #content {
+      background-color: #FFF;
+      border-radius: 5px;
+    }
+    #content .main {
+      padding: 20px;
+    }
+    #content .sidebar {
+      padding: 10px;
+    }
+    #content p {
+      line-height: 30px;
+    }
+</style>
+<script type="text/javascript">
+
+
+function markAsEmotionalword(key) {
+    $$.ajax({     
+    url:'addEmotionalWord',     
+    type:'post',     
+    data:'key='+key,     
+    async : true, //默认为true 异步     
+    error:function(){     
+       alert('error');     
+    },     
+    success:function(data){
+      alert(key + 'has been added into Emotional word!')   
+    }  
+  });  
+}
+
+function markAsNegativeword(key) {
+    $$.ajax({     
+    url:'addNegativeWord',     
+    type:'post',     
+    data:'key='+key,     
+    async : true, //默认为true 异步     
+    error:function(){     
+       alert('error');     
+    },     
+    success:function(data){
+      alert(key + 'has been added into Negative word!')   
+    }  
+  });  
+}
+
+function markAsStopword(key) {
+    $$.ajax({     
+    url:'addStopword',     
+    type:'post',     
+    data:'key='+key,     
+    async : true, //默认为true 异步     
+    error:function(){     
+       alert('error');     
+    },     
+    success:function(data){
+      alert(key + 'has been added into stopword!')   
+    }  
+  });  
+}
+</script>
+
+</head>
+<body>
+  <div class='container'>
+    <h1>中文分词 </h1>
+    $:render.navbar()
+    <div id='content' class='row-fluid'>
+      <div class='span9 main'>
+        <h2>高频词($len(unigramWords))</h2>
+        <p>
+        	$for w in unigramWords: 
+    			 $w[0] ：$w[1] <a href="javascript:void(0)" onclick="markAsStopword('$w[0]')"> Stopword </a>  <a href="javascript:void(0)" onclick="markAsEmotionalword('$w[0]')"> Emotinal </a> <a href="javascript:void(0)" onclick="markAsNegativeword('$w[0]')"> Negative </a><br>
+        </p> 
+
+        
+      </div>
+      <div class='span3 sidebar'>
+        <h2>Sidebar</h2>
+        <ul class="nav nav-tabs nav-stacked">
+          <li><a href='#'>Another Link 1</a></li>
+          <li><a href='#'>Another Link 2</a></li>
+          <li><a href='#'>Another Link 3</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
